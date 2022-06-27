@@ -1,0 +1,77 @@
+<mat-card *ngIf="usuario" class="user">
+    <mat-action-row>
+        <button *ngIf="!usuario.isPremium; else notPremium" mat-raised-button color="get" (click)="get_cancel_Premium()">Get Premium</button>
+        <ng-template #notPremium>
+            <button mat-raised-button color="cancel" (click)="get_cancel_Premium()">Cancel Premium</button>
+        </ng-template>
+        <button *ngIf="!usuario.isPremium; else notPremium" mat-raised-button color="get" (click)="get_buy_Premium()">Get Premium with coins</button>
+        <ng-template #notPremium>
+            <button mat-raised-button color="cancel" (click)="get_buy_Premium()">Cancel Premium</button>
+        </ng-template>
+    </mat-action-row>
+    <mat-action-row></mat-action-row>
+    <div class="nombres-user">
+        <div class="nombres">
+            <img src="../../../../assets/profilePic.png" height="50" width="50" />
+            <div><mat-card-title>{{usuario.nombres}} {{usuario.apellidos}}</mat-card-title></div>
+        </div>
+        <div class="monedas">
+            <img src="../../../../assets/monedas.png" height="25" width="25" />
+            <p id="mon">Monedas: {{usuario.num_monedas}}</p>
+        </div>
+    </div>
+    <mat-card-content>
+        <div class="info">
+            <div>
+                <p>Correo: {{usuario.correo}}</p>
+            </div>
+            <div>
+                <p>Actividades completadas: {{usuario.num_act_completas}}</p>
+                <p>Tipo de Usuario: {{usuario.tipo_usuario}}</p>
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-action-row>
+        <div class="d-flex justify-content-between" style="width: 100%;">
+            <div>
+                <button mat-raised-button color="accent" 
+                    (click)="updateDialog(usuario)">EDITAR PERFIL</button>
+            </div>
+            <div>
+                <button mat-raised-button color="warn"
+                    (click)="deleteUsuario()">ELIMINAR</button>
+            </div>
+        </div>
+    </mat-action-row>
+</mat-card>
+
+<div class="follow-recom">
+    <mat-card class="listado-recom">
+        <mat-card-title class="text-left">Recompensas</mat-card-title>
+            <mat-card-title-group>
+                <div *ngFor="let recompensa of recompensas">
+                    <mat-panel-title style="font-size: 20px;">
+                        {{recompensa.nombre}}
+                    </mat-panel-title>
+                <mat-card-subtitle>Detalles: {{recompensa.detalles}}</mat-card-subtitle>
+            <img mat-card-md-image src="../../../../assets/crono.png">
+        </div>
+    </mat-card-title-group>
+        
+    </mat-card>
+
+    <mat-card class="listado-follows">
+        <mat-card-title>Usuarios Seguidos</mat-card-title>
+        <div *ngFor="let contacto of contactos">
+            <mat-expansion-panel hideToggle style="background-color: lightgray;">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="text-end">
+                        {{contacto.nombres}} {{contacto.apellidos}} ({{contacto.correo}})
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>Tipo de usuario: {{contacto.tipo_usuario}}</p>
+            </mat-expansion-panel>
+        </div>
+    </mat-card>
+</div>
+
